@@ -14,6 +14,8 @@ public abstract class Publication implements Serializable {
         this.year = year;
     }
 
+    public abstract String toCsv();
+
     int getYear() {
         return year;
     }
