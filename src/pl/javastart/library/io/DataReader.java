@@ -13,6 +13,10 @@ public class DataReader {
         this.printer = printer;
     }
 
+    public String getString() {
+        return sc.nextLine();
+    }
+
     public int getInt() {
         try {
             return sc.nextInt();
@@ -53,5 +57,9 @@ public class DataReader {
         int day = getInt();
 
         return new Magazine(title, publisher, language, year, month, day);
+    }
+
+    public void close() {
+        sc.close();
     }
 }
