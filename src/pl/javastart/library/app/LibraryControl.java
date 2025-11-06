@@ -6,16 +6,13 @@ import pl.javastart.library.io.DataReader;
 import pl.javastart.library.io.file.FileManager;
 import pl.javastart.library.io.file.FileManagerBuilder;
 import pl.javastart.library.model.*;
-import pl.javastart.library.model.comparator.AlphabeticalTitleComparator;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.InputMismatchException;
 
 class LibraryControl {
-    private ConsolePrinter printer = new ConsolePrinter();
-    private DataReader dataReader = new DataReader(printer);
-    private FileManager fileManager;
+    private final ConsolePrinter printer = new ConsolePrinter();
+    private final DataReader dataReader = new DataReader(printer);
+    private final FileManager fileManager;
 
     private Library library;
 
@@ -190,8 +187,8 @@ class LibraryControl {
         ADD_USER(7, "Dodaj czytelnika"),
         PRINT_USERS(8, "Wyświetl czytelników");
 
-        private int value;
-        private String description;
+        private final int value;
+        private final String description;
 
         Option(int value, String desc) {
             this.value = value;
