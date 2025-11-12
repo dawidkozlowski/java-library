@@ -11,9 +11,9 @@ import java.util.Comparator;
 import java.util.InputMismatchException;
 
 class LibraryControl {
-    private final ConsolePrinter printer = new ConsolePrinter();
-    private final DataReader dataReader = new DataReader(printer);
-    private final FileManager fileManager;
+    private ConsolePrinter printer = new ConsolePrinter();
+    private DataReader dataReader = new DataReader(printer);
+    private FileManager fileManager;
 
     private Library library;
 
@@ -59,6 +59,9 @@ class LibraryControl {
                     break;
                 case PRINT_USERS:
                     printUsers();
+                    break;
+                case FIND_BOOK:
+                    findBook();
                     break;
                 case EXIT:
                     exit();
@@ -142,6 +145,15 @@ class LibraryControl {
         ));
     }
 
+    private void findBook() {
+        printer.printLine("Podaj tytuł publikacji:");
+        String title = dataReader.getString();
+        String notFoundMessage = "Brak publikacji o takim tytule";
+        library.findPublicationByTitle(title)
+                .map(Publication::toString)
+                .ifPresentOrElse(System.out::println, () -> System.out.println(notFoundMessage));
+    }
+
     private void deleteMagazine() {
         try {
             Magazine magazine = dataReader.readAndCreateMagazine();
@@ -186,10 +198,11 @@ class LibraryControl {
         DELETE_BOOK(5, "Usuń książkę"),
         DELETE_MAGAZINE(6, "Usuń magazyn"),
         ADD_USER(7, "Dodaj czytelnika"),
-        PRINT_USERS(8, "Wyświetl czytelników");
+        PRINT_USERS(8, "Wyświetl czytelników"),
+        FIND_BOOK(9, "Wyszukaj książkę");
 
-        private final int value;
-        private final String description;
+        private int value;
+        private String description;
 
         Option(int value, String desc) {
             this.value = value;
